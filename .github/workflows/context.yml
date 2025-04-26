@@ -1,0 +1,41 @@
+name: context
+
+# main ブランチへの push と v1.2.3 のようなタグ push で実行
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) コードを取得
+      - uses: actions/checkout@v4
+
+      # 2) github / runner コンテキストの主要フィールドを表示
+      - name: Print context info
+        run: |
+          echo "::group::github context"
+          echo "repository   = ${{ github.repository }}"
+          echo "ref          = ${{ github.ref }}"
+          echo "ref_name     = ${{ github.ref_name }}"
+          echo "ref_type     = ${{ github.ref_type }}"
+          echo "sha          = ${{ github.sha }}"
+          echo "event_name   = ${{ github.event_name }}"
+          echo "::endgroup::"
+
+          echo "::group::runner context"
+          echo "os           = ${{ runner.os }}"
+          echo "arch         = ${{ runner.arch }}"
+          echo "name         = ${{ runner.name }}"
+          echo "temp dir     = ${{ runner.temp }}"
+          echo "tool_cache    = ${{ runner.tool_cache }}"
+          echo "::endgroup::"
+
+      # 3) ランナーの一時ディレクトリを使ってファイルを作る
+      - name: Use runner.temp
+        run: |
+          echo "created by ci at $(date)" > ${{ runner.temp }}/hello.txt
+          cat ${{ runner.temp }}/hello.txt
