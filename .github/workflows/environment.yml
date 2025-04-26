@@ -8,14 +8,14 @@ jobs:
     env:
       BRANCH: main
     steps:
-      - run: echo "{{ env.BRANCH }}"
+      - run: echo "${BRANCH}"
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH }}
   print:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "{{ env.EXAMPLE }}"
+      - run: echo "${EXAMPLE}"
       - env:
           EXAMPLE: defined by step level
-        run: echo "${{ env.EXAMPLE }}"
+        run: echo "${EXAMPLE}"
