@@ -1,4 +1,4 @@
-name: context
+name: Context
 
 # main ブランチへの push と v1.2.3 のようなタグ push で実行
 on:
