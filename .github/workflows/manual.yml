@@ -1,23 +1,16 @@
 name: Manual
 on:
+  push:
   workflow_dispatch:
-    inputs:
-      greeting:
-        type: string
-        default: Hello
-        required: true
-        description: A cheerful word
-      log_level:
-        type: choice
-        default: info
-        required: true
-        description: The log level
-        options:
-          - info
-          - debug
-          - error
+
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ inputs.greeting }}"
+      - name: Output 1
+        run: echo "This is executed by a manual workflow and a push event"
+
+      - name: Output 2
+        # ワークフローを手動で実行する場合は実行されない
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        run: echo "This is executed only by a push event"
