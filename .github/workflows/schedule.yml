@@ -2,7 +2,7 @@ name: Schedule
 on:
   schedule:
     # Runs at 2025/04/26 17:00 JST
-  - cron: '0 8 26 4 *'
+  - cron: '5 8 26 4 *'
 jobs:
   run:
     runs-on: ubuntu-latest
