@@ -1,0 +1,15 @@
+name: Comment PR
+on: pull_request
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Comment on PR
+        run: |
+          echo "This is a comment on the pull request." > comment.txt
+          echo "Hello ${GITHUB_ACTOR}" > comment.txt
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
